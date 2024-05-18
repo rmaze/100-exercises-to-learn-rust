@@ -4,8 +4,6 @@ pub struct Ticket {
     status: String,
 }
 
-// TODO: based on what you learned in this section, replace `todo!()` with
-//  the correct **stack size** for the respective type.
 #[cfg(test)]
 mod tests {
     use super::Ticket;
@@ -13,16 +11,16 @@ mod tests {
 
     #[test]
     fn string_size() {
-        assert_eq!(size_of::<String>(), todo!());
+        // The size of a `String` is the size of two pointers (for the buffer and the capacity)
+        // plus the size of a `usize` (for the length).
+        assert_eq!(size_of::<String>(), 24); // assuming a 64-bit architecture
     }
 
     #[test]
     fn ticket_size() {
-        // This is a tricky question!
-        // The "intuitive" answer happens to be the correct answer this time,
-        // but, in general, the memory layout of structs is a more complex topic.
-        // If you're curious, check out the "Data layout" section of the Rustonomicon
-        // https://doc.rust-lang.org/nomicon/data.html for more information.
-        assert_eq!(size_of::<Ticket>(), todo!());
+        // The size of `Ticket` is the sum of the sizes of its fields (`String` is a pointer
+        // to the actual string data, so its size is not included in the struct size calculation).
+        // Each `String` field has a size of 24 bytes, so the total size is 24 + 24 + 24 = 72.
+        assert_eq!(size_of::<Ticket>(), 72); // assuming a 64-bit architecture
     }
 }
