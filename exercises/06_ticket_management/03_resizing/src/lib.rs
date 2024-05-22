@@ -9,9 +9,8 @@ mod tests {
 
         v.push(3); // beyond capacity, needs to resize
 
-        // Can you guess what the new capacity will be?
-        // Beware that the standard library makes no guarantees about the
-        // algorithm used to resize the vector, so this may change in the future.
-        assert_eq!(v.capacity(), todo!());
+        // The standard library typically doubles the capacity, but this is not guaranteed.
+        // However, for most current implementations, the capacity will be doubled.
+        assert_eq!(v.capacity(), 4);
     }
 }

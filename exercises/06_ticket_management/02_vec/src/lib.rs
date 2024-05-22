@@ -1,21 +1,36 @@
-// Given a number `n`, return the `n+1`th number in the Fibonacci sequence.
-//
-// The Fibonacci sequence is defined as follows:
-//
-// - The first number of the sequence is 0.
-// - The second number of the sequence is 1.
-// - Every subsequent number is the sum of the two preceding numbers.
-//
-// So the sequence goes: 0, 1, 1, 2, 3, 5, 8, 13, 21, and so on.
-//
-// We expect `fibonacci(0)` to return `0`, `fibonacci(1)` to return `1`,
-// `fibonacci(2)` to return `1`, and so on.
 pub fn fibonacci(n: u32) -> u32 {
-    // TODO: implement the `fibonacci` function
-    //
-    // Hint: use a `Vec` to memoize the results you have already calculated
-    // so that you don't have to recalculate them several times.
-    todo!()
+    if n == 0 {
+        return 0;
+    }
+    if n == 1 {
+        return 1;
+    }
+    fn matrix_mult(a: [[u32; 2]; 2], b: [[u32; 2]; 2]) -> [[u32; 2]; 2] {
+        [
+            [
+                a[0][0] * b[0][0] + a[0][1] * b[1][0],
+                a[0][0] * b[0][1] + a[0][1] * b[1][1],
+            ],
+            [
+                a[1][0] * b[0][0] + a[1][1] * b[1][0],
+                a[1][0] * b[0][1] + a[1][1] * b[1][1],
+            ],
+        ]
+    }
+    fn matrix_pow(mut m: [[u32; 2]; 2], mut p: u32) -> [[u32; 2]; 2] {
+        let mut res = [[1, 0], [0, 1]];
+        while p > 0 {
+            if p % 2 == 1 {
+                res = matrix_mult(res, m);
+            }
+            m = matrix_mult(m, m);
+            p /= 2;
+        }
+        res
+    }
+    let base = [[1, 1], [1, 0]];
+    let result = matrix_pow(base, n - 1);
+    result[0][0]
 }
 
 #[cfg(test)]

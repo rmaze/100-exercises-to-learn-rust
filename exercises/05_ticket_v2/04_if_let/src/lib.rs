@@ -5,10 +5,16 @@ enum Shape {
 }
 
 impl Shape {
-    // TODO: Implement the `radius` method using
-    //  either an `if let` or a `let/else`.
+    // Implement the `radius` method using `if let` or `let else`.
     pub fn radius(&self) -> f64 {
-        todo!()
+        if let Shape::Circle { radius } = self {
+            return *radius;
+        } else if let Shape::Square { .. } = self {
+            panic!("Cannot get radius of a Square");
+        } else if let Shape::Rectangle { .. } = self {
+            panic!("Cannot get radius of a Rectangle");
+        }
+        panic!("Unknown shape");
     }
 }
 

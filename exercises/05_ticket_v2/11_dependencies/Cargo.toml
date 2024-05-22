@@ -1,4 +1,7 @@
 [package]
-name = "deps"
-version = "0.1.0"
 edition = "2021"
+name    = "deps"
+version = "0.1.0"
+
+[dependencies]
+anyhow = "1.0.66"
